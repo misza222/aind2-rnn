@@ -31,9 +31,7 @@ def build_part1_RNN(window_size):
     
     model = Sequential()
     
-    model.add(Dense(32, input_shape=(window_size, 1)))
-    
-    lstm = LSTM(units=window_size, dropout=0.3, recurrent_dropout=0.1)
+    lstm = LSTM(units=5, dropout=0.1, input_shape=(window_size, 1))
     model.add(lstm)
     
     output_layer = Dense(1)
@@ -45,11 +43,12 @@ def build_part1_RNN(window_size):
 
 
 ### TODO: return the text input with only ascii lowercase and the punctuation given below included.
+# to include digits add (ord(i) >= 48 and ord(i) <= 57)
 def cleaned_text(text):
     punctuation = ['!', ',', '.', ':', ';', '?', ' ']
     
     def is_valid(i):
-        return (i in punctuation) or (ord(i) >= 48 and ord(i) <= 57) or (ord(i) >= 97 and ord(i) <= 122)
+        return (i in punctuation) or (ord(i) >= 97 and ord(i) <= 122)
     
     text = ''.join([i if is_valid(i) else '' for i in text])
     
